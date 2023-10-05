@@ -1,0 +1,85 @@
+#include <stdio.h>
+
+int main() {
+    int capacidade = 100;
+    int contador_otimo = 0;
+    int contador_bom = 0;
+    int contador_regular = 0;
+    int contador_ruim = 0;
+    int contador_pessimo = 0;
+    int soma_idade_ruim = 0;
+    int maior_idade_pessimo = -1;
+    int maior_idade_otimo = -1;
+    int maior_idade_ruim = -1;
+
+    for (int i = 0; i < capacidade; i++) {
+        char nota;
+        int idade;
+
+        printf("Digite a idade do espectador %d: ", i + 1);
+        scanf("%d", &idade);
+
+        printf("Digite a nota (A, B, C, D, E) para o filme do espectador %d: ", i + 1);
+        scanf(" %c", &nota); 
+
+        switch (nota) {
+            case 'A':
+                contador_otimo++;
+                if (idade > maior_idade_otimo) {
+                    maior_idade_otimo = idade;
+                }
+                break;
+            case 'B':
+                contador_bom++;
+                break;
+            case 'C':
+                contador_regular++;
+                break;
+            case 'D':
+                contador_ruim++;
+                soma_idade_ruim += idade;
+                if (idade > maior_idade_ruim) {
+                    maior_idade_ruim = idade;
+                }
+                break;
+            case 'E':
+                contador_pessimo++;
+                if (idade > maior_idade_pessimo) {
+                    maior_idade_pessimo = idade;
+                }
+                break;
+            default:
+                printf("Opção inválida. Por favor, digite A, B, C, D ou E.\n");
+                i--; 
+                break;
+        }
+    }
+
+    // Cálculo das respostas solicitadas
+    printf("Quantidade de respostas Ótimo: %d\n", contador_otimo);
+    float diferenca_percentual = ((float)contador_bom - (float)contador_regular)
+    printf("Diferença percentual entre respostas Bom e Regular: %.2f%%\n", diferenca_percentual);
+
+    float media_idade_ruim = 0.0;
+    if (contador_ruim > 0) {
+        media_idade_ruim = (float)soma_idade_ruim
+    }
+    printf("Média de idade das pessoas que responderam Ruim: %.2f\n", media_idade_ruim);
+
+    float percentagem_pessimo = ((float)contador_pessimo 
+    printf("Percentagem de respostas Péssimo: %.2f%%\n", percentagem_pessimo);
+
+    if (maior_idade_pessimo != -1) {
+        printf("Maior idade que utilizou a opção Péssimo: %d\n", maior_idade_pessimo);
+    } else {
+        printf("Nenhum espectador respondeu Péssimo.\n");
+    }
+
+    if (maior_idade_otimo != -1 && maior_idade_ruim != -1) {
+        int diferenca_idades = maior_idade_otimo - maior_idade_ruim;
+        printf("Diferença de idade entre o maior idade que respondeu Ótimo e Ruim: %d\n", diferenca_idades);
+    } else {
+        printf("Não há respostas para calcular a diferença de idade.\n");
+    }
+
+}

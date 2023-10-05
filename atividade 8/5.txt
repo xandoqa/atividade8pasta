@@ -1,0 +1,104 @@
+#include <stdio.h>
+
+#define MAX_JOGADOR 5
+#define MAX_ENTREVISTADOS 300
+#define MIN_ENTREVISTADOS 50
+
+struct Jogador {
+    char nome[50];
+    int votos;
+};
+
+void encontrarJogadoraMaisVotada(struct Jogador jogadores[], int numJogadores) {
+    int maxVotos = -1;
+
+    for (int i = 0; i < numJogadores; i++) {
+        if (jogadores[i].votos > maxVotos) {
+            maxVotos = jogadores[i].votos;
+        }
+    }
+
+    printf("Jogadoras mais votadas: ");
+    for (int i = 0; i < numJogadores; i++) {
+        if (jogadores[i].votos == maxVotos) {
+            printf("%s ", jogadores[i].nome);
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Jogador jogadores[MAX_JOGADOR] = {
+        {"Sam Kerr (Austrália)", 0},
+        {"Alex Morgan (Estados Unidos)", 0},
+        {"Dzsenifer marozssan (Alemanha)", 0},
+        {"Amandine Henry (França)", 0},
+        {"Marta Vieira (Brasil)", 0}
+    };
+
+    int numEntrevistados = 0;
+    int numMulheres = 0;
+
+    while (1) {
+        char nome[50];
+        int idade;
+        char sexo;
+        int voto;
+
+        printf("Digite o nome: ");
+        scanf(" %[^\n]s", nome);
+
+        printf("Digite a idade: ");
+        scanf("%d", &idade);
+
+        printf("Digite o sexo (M/F): ");
+        scanf(" %c", &sexo);
+
+        printf("Digite o número correspondente ao jogador votado: \n");
+        printf("1- Sam Kerr (Austrália)\n");
+        printf("2- Alex Morgan (Estados Unidos)\n");
+        printf("3- Dzsenifer marozssan (Alemanha)\n");
+        printf("4- Amandine Henry (França)\n");
+        printf("5- Marta Vieira (Brasil)\n");
+        scanf("%d", &voto);
+
+        if (voto >= 1 && voto <= MAX_JOGADOR) {
+            jogadores[voto - 1].votos++;
+        } else {
+            printf("Voto inválido. Por favor, insira um número entre 1 e %d.\n", MAX_JOGADOR);
+            continue;
+        }
+
+        if (idade >= 12) {
+            numEntrevistados++;
+
+            if (sexo == 'F' || sexo == 'f') {
+                numMulheres++;
+            }
+
+            printf("Nome: %s, Idade: %d, Sexo: %c\n", nome, idade, sexo);
+        } else {
+            printf("Pessoa menor de idade não será incluída no relatório.\n");
+        }
+
+        if (numEntrevistados >= MIN_ENTREVISTADOS && numEntrevistados <= MAX_ENTREVISTADOS) {
+            char continuar;
+            printf("Deseja encerrar a pesquisa? (S/N): ");
+            scanf(" %c", &continuar);
+            if (continuar == 'S' || continuar == 's') {
+                break;
+            }
+        }
+    }
+
+    printf("Quantidade de votos por jogadora:\n");
+    for (int i = 0; i < MAX_JOGADOR; i++) {
+        printf("%s: %d votos\n", jogadores[i].nome, jogadores[i].votos);
+    }
+
+    encontrarJogadoraMaisVotada(jogadores, MAX_JOGADOR);
+
+    printf("Número total de entrevistados: %d\n", numEntrevistados);
+
+    printf("Número de mulheres entrevistadas: %d\n", numMulheres);
+}

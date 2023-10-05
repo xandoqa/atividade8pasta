@@ -1,0 +1,66 @@
+#include <stdio.h>
+
+int main() {
+    int num_pessoas = 10;
+    int num_homens = 0;
+    int num_mulheres = 0;
+    float soma_altura_homens = 0;
+    float soma_altura_mulheres = 0;
+    float soma_altura_grupo = 0;
+    float soma_peso_homens = 0;
+    float soma_peso_mulheres = 0;
+    float soma_peso_grupo = 0;
+
+    for (int i = 1; i <= num_pessoas; i++) {
+        char sexo;
+        float altura, peso;
+
+        printf("Pessoa %d:\n", i);
+
+        printf("Digite o nome: ");
+        char nome[50];
+        scanf(" %[^\n]s", nome);
+
+        printf("Digite o sexo (M/m para masculino ou F/f para feminino): ");
+        scanf(" %c", &sexo);
+
+        printf("Digite a altura (em metros): ");
+        scanf("%f", &altura);
+
+        printf("Digite o peso (em quilogramas): ");
+        scanf("%f", &peso);
+
+        if (sexo == 'M' || sexo == 'm') {
+            num_homens++;
+            soma_altura_homens += altura;
+            soma_peso_homens += peso;
+        } else if (sexo == 'F' || sexo == 'f') {
+            num_mulheres++;
+            soma_altura_mulheres += altura;
+            soma_peso_mulheres += peso;
+        } else {
+            printf("Sexo inválido. Digite M/m ou F/f.\n");
+            i--; // Decrementa o contador para repetir esta entrada
+            continue;
+        }
+
+        soma_altura_grupo += altura;
+        soma_peso_grupo += peso;
+    }
+
+    float altura_media_homens = soma_altura_homens / num_homens;
+    float altura_media_mulheres = soma_altura_mulheres / num_mulheres;
+    float altura_media_grupo = soma_altura_grupo / num_pessoas;
+    float peso_media_homens = soma_peso_homens / num_homens;
+    float peso_media_mulheres = soma_peso_mulheres / num_mulheres;
+    float peso_media_grupo = soma_peso_grupo / num_pessoas;
+
+    printf("Número de homens: %d\n", num_homens);
+    printf("Número de mulheres: %d\n", num_mulheres);
+    printf("Altura média dos homens: %.2f metros\n", altura_media_homens);
+    printf("Altura média das mulheres: %.2f metros\n", altura_media_mulheres);
+    printf("Altura média do grupo: %.2f metros\n", altura_media_grupo);
+    printf("Peso médio dos homens: %.2f kg\n", peso_media_homens);
+    printf("Peso médio das mulheres: %.2f kg\n", peso_media_mulheres);
+    printf("Peso médio do grupo: %.2f kg\n", peso_media_grupo);
+}

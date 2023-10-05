@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Digite um número inteiro (maior ou igual a zero): ");
+    scanf("%d", &n);
+
+    if (n < 0) {
+        printf("O número deve ser maior ou igual a zero.\n");
+    } else {
+        int termo_anterior = 0;
+        int termo_atual = 1;
+        int termo_fibonacci = 0;
+
+        if (n == 0) {
+            termo_fibonacci = termo_anterior;
+        } else if (n == 1) {
+            termo_fibonacci = termo_atual;
+        } else {
+            for (int i = 2; i <= n; i++) {
+                termo_fibonacci = termo_anterior + termo_atual;
+                termo_anterior = termo_atual;
+                termo_atual = termo_fibonacci;
+            }
+        }
+
+        printf("O %dº termo da sequência de Fibonacci é: %d\n", n, termo_fibonacci);
+    }
+}

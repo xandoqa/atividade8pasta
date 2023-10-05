@@ -1,0 +1,125 @@
+#include <stdio.h>
+
+int main() {
+    int total_moradores = 50;
+    char elevador[50];
+    char periodo[50];
+    int contador_elevador_A = 0;
+    int contador_elevador_B = 0;
+    int contador_elevador_C = 0;
+    int contador_matutino = 0;
+    int contador_vespertino = 0;
+    int contador_noturno = 0;
+
+    for (int i = 0; i < total_moradores; i++) {
+        printf("Morador %d:\n", i + 1);
+
+        printf("Elevador mais utilizado (A, B ou C): ");
+        scanf("%c", &elevador[i]);
+
+        printf("Período mais utilizado (M, V ou N): ");
+        scanf("%c", &periodo[i]);
+
+        switch (elevador[i]) {
+            case 'A':
+                contador_elevador_A++;
+                break;
+            case 'B':
+                contador_elevador_B++;
+                break;
+            case 'C':
+                contador_elevador_C++;
+                break;
+        }
+
+        switch (periodo[i]) {
+            case 'M':
+                contador_matutino++;
+                break;
+            case 'V':
+                contador_vespertino++;
+                break;
+            case 'N':
+                contador_noturno++;
+                break;
+        }
+    }
+
+    char periodo_mais_usado;
+    int max_periodo = contador_matutino;
+
+    if (contador_vespertino > max_periodo) {
+        max_periodo = contador_vespertino;
+        periodo_mais_usado = 'V';
+    }
+
+    if (contador_noturno > max_periodo) {
+        max_periodo = contador_noturno;
+        periodo_mais_usado = 'N';
+    }
+
+    char elevador_periodo_mais_usado;
+    for (int i = 0; i < total_moradores; i++) {
+        if (periodo[i] == periodo_mais_usado) {
+            elevador_periodo_mais_usado = elevador[i];
+            break;
+        }
+    }
+
+    printf("O período mais usado de todos é %c e pertence ao elevador %c.\n", periodo_mais_usado, elevador_periodo_mais_usado);
+
+    char elevador_mais_frequentado;
+    int max_elevador = contador_elevador_A;
+
+    if (contador_elevador_B > max_elevador) {
+        max_elevador = contador_elevador_B;
+        elevador_mais_frequentado = 'B';
+    }
+
+    if (contador_elevador_C > max_elevador) {
+        max_elevador = contador_elevador_C;
+        elevador_mais_frequentado = 'C';
+    }
+
+    char periodo_elevador_mais_frequentado;
+    for (int i = 0; i < total_moradores; i++) {
+        if (elevador[i] == elevador_mais_frequentado) {
+            periodo_elevador_mais_frequentado = periodo[i];
+            break;
+        }
+    }
+
+    printf("O elevador mais frequentado é o %c e se concentra no período %c.\n", elevador_mais_frequentado, periodo_elevador_mais_frequentado);
+
+    int min_periodo = contador_matutino;
+
+    if (contador_vespertino < min_periodo) {
+        min_periodo = contador_vespertino;
+    }
+
+    if (contador_noturno < min_periodo) {
+        min_periodo = contador_noturno;
+    }
+
+    float diferenca_percentual = ((float)(max_periodo - min_periodo) / (float)min_periodo) * 100;
+
+    printf("A diferença percentual entre o mais usado e o menos usado dos horários é de %.2f%%.\n", diferenca_percentual);
+
+    char elevador_media_utilizacao;
+    int total_usos_elevador_media_utilizacao = 0;
+
+    if (contador_elevador_A >= contador_elevador_B && contador_elevador_A >= contador_elevador_C) {
+        elevador_media_utilizacao = 'A';
+        total_usos_elevador_media_utilizacao = contador_elevador_A;
+    } else if (contador_elevador_B >= contador_elevador_A && contador_elevador_B >= contador_elevador_C) {
+        elevador_media_utilizacao = 'B';
+        total_usos_elevador_media_utilizacao = contador_elevador_B;
+    } else {
+        elevador_media_utilizacao = 'C';
+        total_usos_elevador_media_utilizacao = contador_elevador_C;
+    }
+
+    float percentagem_media_utilizacao = ((float)total_usos_elevador_media_utilizacao / (float)total_moradores) * 100;
+
+    printf("A percentagem sobre o total de serviços prestados do elevador de média utilização (%c) é de %.2f%%.\n", elevador_media_utilizacao, percentagem_media_utilizacao);
+}
